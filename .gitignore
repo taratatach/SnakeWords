@@ -17,3 +17,6 @@
 
 # Ignore dictionaries
 /*.txt
+
+# Ignore backup files
+/*~
