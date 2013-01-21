@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  game: gameOne
+  player: erwan
+  letter: "a"
+  word: "amour"
+  x: 1
+  y: 4
+  
+two:
+  game: gameTwo
+  player: amha
+  letter: "l"
+  word: "couille"
+  x: 2
+  y: 3
