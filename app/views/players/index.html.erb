@@ -1,0 +1,21 @@
+
+<div class="container">
+<h1>Listing players</h1>
+<table>
+  <th>Name</th>
+  <th>Total won games</th>
+  <th>Total Score</th>
+<%@players.each do |player| %>
+
+  <tr>
+    <td><%=player.name%></td>
+    <td><%=player.totalWins%></td>
+    <td><%=player.totalScore%></td>
+  </tr>
+
+<%end %>
+</table>
+
+<%=button_to "New player",new_player_path,{:method => :get }%>
+  
+</div>  

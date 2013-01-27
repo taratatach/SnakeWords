@@ -1,0 +1,38 @@
+// Place all the styles related to the players controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+$blue: #3bbfce;
+$margin: 16px;
+$border: 1px;
+
+h1{
+ color:$blue;
+ text-align:center;
+}
+
+table{
+
+    margin-left: auto;
+    margin-right:auto;
+    border: $border $blue solid;
+}
+th{
+    border: $border $blue solid;
+    padding-right: 10%;
+}
+td{
+    border: 1px $blue solid;
+    height: 12px;
+}
+
+.button_to{
+    width: 25%;
+    margin: 2% auto;
+}
+form{
+    width:50%;
+    margin : 0 auto;
+}
+
