@@ -4,7 +4,7 @@ SnakeWords::Application.routes.draw do
   # first created -> highest priority.
 
   match 'menu'=>'menu#index'
-  
+  match 'menu/new_game'=>'menu#new_game'
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
