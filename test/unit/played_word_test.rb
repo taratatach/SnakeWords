@@ -26,19 +26,7 @@ class PlayedWordTest < ActiveSupport::TestCase
     assert_not_nil @p.game.players
   end
   
-  test "player of PlayedWord has games" do
-    assert_not_nil @p.player.games
-  end
-  
-  test "player has the right name" do
-    assert_equal "Erwan", @p.player.name
-  end
-  
   test "player is in game" do
     assert @p.game.players.include?(@p.player), "Player #{@p.player} isn't in game #{@p.game}"
   end
-  
-  # test "the truth" do
-  #   assert true
-  # end
 end

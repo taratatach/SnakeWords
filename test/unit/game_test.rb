@@ -6,7 +6,12 @@ class GameTest < ActiveSupport::TestCase
     assert games(:gameOne).players.size > 0
   end
 
-  # test "the truth" do
-  #   assert true
-  # end
+  test "dictionary exists" do
+    assert File.file? "anglais.txt"
+  end
+  
+  test "dictionary is loaded" do
+    g = Game.new(5, "anglais.txt", nil)
+    assert g.authorized? "aahed"
+  end
 end

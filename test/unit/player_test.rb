@@ -1,23 +1,19 @@
 require 'test_helper'
 
 class PlayerTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   def setup
     @p1= Player.new("Erwan")
-    puts @p1
   end
   
-  test "player initialised" do
-    assert_not_nil @p1, "player cannot be initialised"
+  test "player initialized" do
+    assert_not_nil @p1, "player cannot be initialized"
   end
   
-  test "player's totalScore is 0 at initialisation " do
-    assert @p1.totalScore==0, "player is not correctly initialised"
+  test "player's totalScore is 0 at initialization " do
+    assert_equal 0, @p1.totalScore, "player is not correctly initialized"
   end
   
-   test "player's totalWins is 0 at initialisation " do
-    assert @p1.totalWins==0, "player is not correctly initialised"
+  test "player's totalWins is 0 at initialization " do
+    assert_equal 0, @p1.totalWins, "player is not correctly initialized"
   end
 end
