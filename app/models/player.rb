@@ -3,9 +3,10 @@ class Player < ActiveRecord::Base
 
   attr_accessible :name
 
-  has_and_belongs_to_many :games, :dependent => :destroy
+  has_and_belongs_to_many :games
 
   after_initialize :default_scores
+  before_destroy :destroy_games
 
   def default_scores
     self.totalScore ||= 0
@@ -18,5 +19,11 @@ class Player < ActiveRecord::Base
   
   def addVictory
     self.totalWins += 1
-  end  
+  end
+
+  def destroy_games
+    for game in @games
+      game.destroy
+    end
+  end
 end
