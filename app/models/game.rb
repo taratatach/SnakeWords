@@ -12,7 +12,7 @@ class Game < ActiveRecord::Base
   after_find :init_game
   after_find :construct_grid
   after_initialize :init
-  after_initialize :init_game, :if => Proc new { |game| game.grid == nil } # called only after creation
+  after_initialize :init_game, :if => Proc.new { |game| game.grid == nil } # called only after creation
 
   def init
     insertFirstWord()
@@ -32,7 +32,7 @@ class Game < ActiveRecord::Base
 
   # Insert game's first word horizontaly in random place
   private
-  def inserFirstWord()
+  def insertFirstWord()
     if (@playedWords.size != 0)
       return
     end
