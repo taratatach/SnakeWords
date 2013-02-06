@@ -3,8 +3,17 @@ SnakeWords::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  match 'menu'=>'menu#index'
+  match 'menu'=>'menu#index', :via => :get
   match 'menu/new_game'=>'menu#new_game'
+  match 'menu'=>'menu#signin',:via => :post
+  match 'menu/menu'=>'menu#menu',:via => :get
+  match 'menu/pick_challenger'=>'menu#pick_challenger',:via => :get
+  
+  
+  match 'game/new_game/:id'=>'game#new_game'
+  match 'game/start'=>'game#start' ,:via =>:post
+  
+  match 'game/submit_word' => 'game#submit_word'
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

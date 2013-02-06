@@ -26,3 +26,13 @@
     width:10%;
     heigth:10%;
 }
+
+.error{
+    color:red;
+    margin-left:10%;
+}
+
+.notice{
+    color:green;
+    margin-left:10%;
+}
