@@ -25,6 +25,10 @@ class Game < ActiveRecord::Base
   end
 
   def construct_grid
+    if (@playedWords == nil)
+      return
+    end
+
     for pw in @playedWords
       @grid[pw.x][pw.y] = pw.letter
     end
@@ -33,7 +37,7 @@ class Game < ActiveRecord::Base
   # Insert game's first word horizontaly in random place
   private
   def insertFirstWord()
-    if (@playedWords.size != 0)
+    if (@playedWords != nil)
       return
     end
     
@@ -61,6 +65,10 @@ class Game < ActiveRecord::Base
 
   # Return true if :word has already been played during the game
   def already_played?(word)
+    if (@playedWords == nil)
+      return false
+    end
+
     for pw in @playedWords
       if pw.word == word
         return true
