@@ -6,16 +6,14 @@
 #
 gameOne:
   size: 5
-  dictionary: fr_FR
+  dictionary: "anglais.txt"
   players: erwan, amha
-  finished: false
   
 # column: value
 #
 gameTwo:
   size: 7
-  dictionary: fr_FR
+  dictionary: "anglais.txt"
   players: erwan, amha
-  finished: false
   
 #  column: value
