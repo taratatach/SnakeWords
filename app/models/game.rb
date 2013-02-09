@@ -33,6 +33,7 @@ class Game < ActiveRecord::Base
       return
     end
 
+
     for pw in self.playedWords
       @grid[pw.x][pw.y] = pw.letter
     end
@@ -47,6 +48,7 @@ class Game < ActiveRecord::Base
     self.firstWord = ""
     if (self.firstWord == nil)
       throw Exception.new "wtf ??!"
+
     end
     begin
       if (self.firstWord == nil)
@@ -171,7 +173,7 @@ class Game < ActiveRecord::Base
       start = index + 1
     end
     return false
-  end
+  end  
 
   # Create new PlayedWord object and add it to the list + insert letter in grid
   def saveMove(player, letter, word, x, y)
