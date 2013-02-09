@@ -26,4 +26,5 @@ class Player < ActiveRecord::Base
       game.destroy
     end
   end
+
 end

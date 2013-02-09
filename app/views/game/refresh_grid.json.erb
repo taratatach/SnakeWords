@@ -1,0 +1,9 @@
+{"grid": '<%= @game.grid%> ',
+ "result": ' [<%sep=''%>
+<% @game.playedWords.each do |word|%>
+<%=sep%>
+  <%=word %>
+  <%sep=','%> 
+ <%end%>] '
+
+}

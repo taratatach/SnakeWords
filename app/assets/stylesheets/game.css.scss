@@ -4,17 +4,17 @@
 $blue: #3bbfce;
 $margin: 16px;
 $border: 1px;
-.grid {
+#grid {
 
     margin-left: auto;
     margin-right:auto;
     border: $border $blue solid;
 }
-.grid th{
+#grid th{
     border: $border $blue solid;
     padding-right: 10%;
 }
-.grid td{
+#grid td{
     border: 1px $blue solid;
     height: 50px;
     width : 50px;

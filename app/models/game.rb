@@ -4,12 +4,10 @@ class Game < ActiveRecord::Base
   validates :dictionary, :presence => true
 
   attr_accessible :players, :dictionary, :size, :firstWord, :fwX, :fwY
-  attr_reader :grid, :playedWords, :words
-
+  attr_reader :grid, :words
 
   has_and_belongs_to_many :players
   has_many :playedWords, :dependent => :destroy
-
 
   after_find :init_load
   after_initialize :init_create, :if => Proc.new { |game| game.grid == nil } # called only after creation
@@ -32,29 +30,21 @@ class Game < ActiveRecord::Base
     insert_word(self.firstWord, self.fwX, self.fwY)
 
     if (self.playedWords == nil)
+      
       return
     end
-
+ 
     for pw in self.playedWords
       @grid[pw.x][pw.y] = pw.letter
     end
   end
 
-
-    
-
-
   # Find random word in dictionary, set self.firstWord and insert it in random place
   def init_first_word()
-    if (self.playedWords != nil)
-      return
-    end
-
+  
     self.firstWord = ""
     if (self.firstWord == nil)
       throw Exception.new "wtf ??!"
-
-
     end
     begin
       if (self.firstWord == nil)
@@ -68,14 +58,12 @@ class Game < ActiveRecord::Base
 
     self.fwX = Random.rand(self.size)
     self.fwY = Random.rand(self.size - self.firstWord.length + 1)
-    
+  
     insert_word(self.firstWord, self.fwX, self.fwY)
   end
 
   # Load words from dictionary and fill in words
-
   def init_dict
-
     @words = {}
     file = File.open(self.dictionary)
     file.each do |line|
@@ -85,7 +73,9 @@ class Game < ActiveRecord::Base
 
   # Inserts word at given position
   def insert_word(word, x, y)
+   
     for i in 0...word.length
+     
       @grid[x][y+i] = word[i]
     end
   end
@@ -181,9 +171,12 @@ class Game < ActiveRecord::Base
       start = index + 1
     end
     return false
+  end
 
-  end  
-
-
-
+  # Create new PlayedWord object and add it to the list + insert letter in grid
+  def saveMove(player, letter, word, x, y)
+    @grid[x][y] = letter
+    self.playedWords << PlayedWord.new(game: self, player: player, letter: letter, word: word, x: x, y: y)
+    player.addWord(word)
+  end
 end

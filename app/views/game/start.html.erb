@@ -1,7 +1,5 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
+ 
+ <%= javascript_include_tag "game/game" %>
 <script>
  
 </script>  
@@ -28,11 +26,11 @@ game <%=session[:current_game]%>
 </div>
 
 <table id="grid">
-  <%  @size.times do |i| %>
+  <%  @game.size.times do |i| %>
     <tr>
 
-      <%  @size.times do |j| %>
-      <td  id='target<%=  "#{i}.#{j}" %>' onclick="word(<%=i%>,<%=j%>)"><%=  @game.grid[i][j] %></td>
+      <%  @game.size.times do |j| %>
+      <td  id='target<%=  "#{i}.#{j}"%>' onclick="word(<%=i%>,<%=j%>)"><%=  @game.grid[i][j] %></td>
       <%end%>
     </tr>
   <%end%>
@@ -43,7 +41,7 @@ game <%=session[:current_game]%>
 <form>
 <fieldset>
 <label for="letter">Letter</label>
-<input type="text" name="letter" id="letter" class="text ui-widget-content ui-corner-all" />
+<input type="text" name="letter" id="letter" class="text ui-widget-content ui-corner-all" length="1" maxlength="1" />
 <label for="letter">Word</label>
 <input type="text" name="word" id="word" class="text ui-widget-content ui-corner-all" />
 </fieldset>
