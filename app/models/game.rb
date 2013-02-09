@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   validates :dictionary, :presence => true
 
   attr_accessible :players, :dictionary, :size, :firstWord, :fwX, :fwY
-  attr_reader :grid, :playedWords, :words
+  attr_reader :grid, :words
 
   has_and_belongs_to_many :players
   has_many :playedWords, :dependent => :destroy
@@ -177,7 +177,6 @@ class Game < ActiveRecord::Base
   def saveMove(player, letter, word, x, y)
     @grid[x][y] = letter
     self.playedWords << PlayedWord.new(game: self, player: player, letter: letter, word: word, x: x, y: y)
-    self.playedWords.save()
     player.addWord(word)
   end
 end
