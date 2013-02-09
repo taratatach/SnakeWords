@@ -52,7 +52,8 @@ function submit(letter,cellId,word){
         data:{
             word:word,
             letter:letter,
-            cellId:cellId
+            x:cellId[0],
+            y:cellId[2]
      
         },
         cache:false,
@@ -60,6 +61,9 @@ function submit(letter,cellId,word){
         success:function(result){
             if(result){
                 document.getElementById("target"+cellId).innerHTML=letter;
+                $('#result').load('/game/show_played_words #result', function() {
+alert('Load was performed.');
+});
                 
             }
             else{
@@ -73,3 +77,8 @@ function submit(letter,cellId,word){
         }
     });
 }
+
+var refreshId = setInterval(function()
+{
+     $('#target0.0').fadeOut("slow").load('/game/start #target0.0').fadeIn("fast");
+}, 1000);

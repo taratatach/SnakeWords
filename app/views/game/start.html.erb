@@ -6,19 +6,28 @@
  
 </script>  
 game <%=session[:current_game]%>
-<div class="result">
-  <h2>Players</h2>
-  <table class="players">
-    <th>
-      <td> <%=@p1.name%> </td>
-      <td> <%=@p2.name%> </td>
-    </th>
+
+<div class="result" id="result">
+  <h1> played words</h1>
+  <table>
     <tr>
-    <td> <%= (@game.playedWords)? @game.playedWords.size: "nil" %>
-    </tr>  
-  </table>       
+     <th>Player</th>
+     <th>Word</th>
+     <th>score</th>         
+    </tr>
+<%if(@game.playedWords)%>
+<%@game.playedWords.size.times do |i| %>      
+    <tr>
+    <td><%=@game.playedWords[i].player.name%></td>
+    <td><%=@game.playedWords[i].word%></td>
+     <td><%=@game.playedWords[i].word.length%></td>
+    </tr>
+  <%end%>
+    <%end%> 
+  </table>
 </div>
-<table class="grid">
+
+<table id="grid">
   <%  @size.times do |i| %>
     <tr>
 

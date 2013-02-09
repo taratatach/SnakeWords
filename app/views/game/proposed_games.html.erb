@@ -1,0 +1,23 @@
+<div class="container">
+<h1>Listing players</h1>
+#games size <%=@games.size%>
+#current player <%=session[:player].name%>
+<table>
+  <tr>
+  <th>Game</th>
+  <th>Challenger</th>
+  <th>Total won games</th>
+  <th>Total Score</th>
+  </tr>
+<%@games.each do |game| %>
+  
+  <tr>
+    <td><%=game.id%>
+    <td><%=game.players[0].name%></td>
+    <td><%=game.players[0].totalWins%></td>
+    <td><%=game.players[0].totalScore%></td>
+    <td><%=link_to 'Accept challenge',:controller=>"game",:action=>"join_game",:id=>game.id%></td>
+  </tr>
+
+<%end %>
+</table>

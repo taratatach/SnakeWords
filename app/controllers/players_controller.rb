@@ -10,11 +10,11 @@ class PlayersController < ApplicationController
   end
   
   def create
-    @player=Player.new(params[:name])
+    @player=Player.create(:name=>params[:name])
     
   
     if @player.save
-       flash[:notice]="#{params[:name]} is now part of the SnakeWord world"
+       flash[:notice]="#{params[:name]} is now part of the SnakeWords world"
       redirect_to :action=>"index",:controller=>"menu"
     else
        flash[:alert]="This player name is already used"

@@ -9,9 +9,12 @@ SnakeWords::Application.routes.draw do
   match 'menu/menu'=>'menu#menu',:via => :get
   match 'menu/pick_challenger'=>'menu#pick_challenger',:via => :get
   
-  
+  match 'game/show_played_words'=>'game#show_played_words'
   match 'game/new_game/:id'=>'game#new_game'
-  match 'game/start'=>'game#start' ,:via =>:post
+  match 'game/start'=>'game#start' ,:via =>[:post,:get]
+  
+  match 'menu/proposed_games'=>'game#proposed_games'
+  match 'game/join_game'=>'game#join_game'
   
   match 'game/submit_word' => 'game#submit_word'
   # Sample of regular route:
