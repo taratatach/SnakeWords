@@ -21,10 +21,11 @@ class MenuController < ApplicationController
       
     end
     def pick_challenger
-      redirect_to :action=>'index', :controller=>'players'
-      
+      redirect_to :action=>'index', :controller=>'players'      
     end
     
-    
+    def proposed_games
+      redirect_to :action=>'proposed_games', :controller=>'game'  
+    end
   
 end
