@@ -11,11 +11,12 @@
     <td><%=player.name%></td>
     <td><%=player.totalWins%></td>
     <td><%=player.totalScore%></td>
+    <td><%=link_to 'challenge',:controller=>"game",:action=>"new_game",:id=>player.name%></td>
   </tr>
 
 <%end %>
 </table>
 
-<%=button_to "New player",new_player_path,{:method => :get }%>
+
   
 </div>  

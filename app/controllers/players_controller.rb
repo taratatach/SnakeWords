@@ -1,6 +1,12 @@
 class PlayersController < ApplicationController
   def  index
-   @players=Player.find(:all)
+   @allPlayers=Player.find(:all)
+   @players=[]
+   for player in @allPlayers
+     if(player.name != session[:player].name)
+       @players.push(player)
+     end
+   end
   end
   
   def create
@@ -8,8 +14,10 @@ class PlayersController < ApplicationController
     
   
     if @player.save
-      redirect_to :action=>"index"
+       flash[:notice]="#{params[:name]} is now part of the SnakeWord world"
+      redirect_to :action=>"index",:controller=>"menu"
     else
+       flash[:alert]="This player name is already used"
       redirect_to :action=>"new"      
     end
     

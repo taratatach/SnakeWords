@@ -1,14 +1,30 @@
 class MenuController < ApplicationController
   
-  def index
-    
+  def index    
   end
   
-  def new_game
-    @game=Game.new
-    @p1=Player.new("amha")
-    @p2=Player.new("Erwan")
-    @game.players.push(@p1,@p2)
+
+    def signin
+      @p=Player.find_by_name(params[:name])
+      if(@p==nil)
+        flash[:alert]="Wrong player name"
+        redirect_to :action=>index
+      else
+        session[:player]=@p
+        redirect_to :action=>'menu'
        
-  end
+      end
+      
+    end
+    
+    def menu
+      
+    end
+    def pick_challenger
+      redirect_to :action=>'index', :controller=>'players'
+      
+    end
+    
+    
+  
 end

@@ -13,3 +13,63 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+//= require jquery-ui.min
+
+
+$(function() {
+    $( "#dialog" ).dialog({
+        autoOpen: false,
+        position: "left",
+     
+        modal: true,
+        buttons: {
+            "submit": function() {
+                var letter= $('#letter').val(); 
+                 var word= $('#word').val(); 
+                var cellId=$(this).data('id');
+                submit(letter,cellId,word);
+                $( this ).dialog( "close" );
+            }
+        }
+       
+    });
+
+
+		
+});
+
+
+function word(i,j){
+    $("#target"+i+"."+j).css("background-color","blue");
+    $( "#dialog" ).data('id',""+i+"."+j).dialog( "open" ); 
+   
+}
+function submit(letter,cellId,word){
+    $.ajax(
+    {
+        url:"/game/submit_word",
+   
+        data:{
+            word:word,
+            letter:letter,
+            cellId:cellId
+     
+        },
+        cache:false,
+        dataType:"json",
+        success:function(result){
+            if(result){
+                document.getElementById("target"+cellId).innerHTML=letter;
+                
+            }
+            else{
+                alert("The word doesn't exist in the dictionnary or is not in the grid")
+            }
+        }
+        ,
+        error:function(xhr,status,error)
+        {
+            alert(error);
+        }
+    });
+}

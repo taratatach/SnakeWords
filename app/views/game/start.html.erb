@@ -1,0 +1,43 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<script>
+ 
+</script>  
+game <%=session[:current_game]%>
+<div class="result">
+  <h2>Players</h2>
+  <table class="players">
+    <th>
+      <td> <%=@p1.name%> </td>
+      <td> <%=@p2.name%> </td>
+    </th>
+    <tr>
+    <td> <%= (@game.playedWords)? @game.playedWords.size: "nil" %>
+    </tr>  
+  </table>       
+</div>
+<table class="grid">
+  <%  @size.times do |i| %>
+    <tr>
+
+      <%  @size.times do |j| %>
+      <td  id='target<%=  "#{i}.#{j}" %>' onclick="word(<%=i%>,<%=j%>)"><%=  @game.grid[i][j] %></td>
+      <%end%>
+    </tr>
+  <%end%>
+</table>
+
+<div id="dialog" >
+
+<form>
+<fieldset>
+<label for="letter">Letter</label>
+<input type="text" name="letter" id="letter" class="text ui-widget-content ui-corner-all" />
+<label for="letter">Word</label>
+<input type="text" name="word" id="word" class="text ui-widget-content ui-corner-all" />
+</fieldset>
+</form>
+</div>
+

@@ -1,0 +1,9 @@
+
+<div> 
+<%= form_tag("/game/start", :method => "post") do %>
+  <%= label_tag(:size, "choose the size of grid(5-10):") %>
+  <%= text_field_tag(:size) %>
+  <%= submit_tag("Start the Game ") %>
+<% end %>  
+
+</div>
