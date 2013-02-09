@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PlayerTest < ActiveSupport::TestCase
   def setup
-    @p1= Player.new("Erwan")
+    @p1= Player.new(name: "Erwan")
   end
   
   test "player initialized" do
@@ -15,5 +15,10 @@ class PlayerTest < ActiveSupport::TestCase
   
   test "player's totalWins is 0 at initialization " do
     assert_equal 0, @p1.totalWins, "player is not correctly initialized"
+  end
+
+  test "adding a word increases totalScore" do
+    @p1.addWord("Sucrerie")
+    assert_not_equal 0, @p1.totalScore, "totalScore modifier doesn't work"
   end
 end
