@@ -66,4 +66,14 @@ class GameTest < ActiveSupport::TestCase
       assert lg.found?(lg.firstWord[i], lg.firstWord, lg.fwX, lg.fwY+i), "first word is not found"
     end
   end
+
+  test "can save a move" do
+    p1 = Player.new(name: "Georges")
+    score = p1.totalScore
+    p2 = Player.new(name: "Georginette")
+    g = Game.new({:size => 5, :dictionary => "anglais.txt", :players => [p1, p2]})
+    g.saveMove(p1, 'e', "error", 0, 4)
+    assert g.grid[0][4] == 'e', "letter isn't inserted in grid"
+    assert_equal p1.totalScore, score+5, "player's score isn't updated"
+  end
 end

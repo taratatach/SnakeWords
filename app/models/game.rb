@@ -173,7 +173,9 @@ class Game < ActiveRecord::Base
       start = index + 1
     end
     return false
-  end
+
+  end  
+
 
   # Create new PlayedWord object and add it to the list + insert letter in grid
   def saveMove(player, letter, word, x, y)
@@ -181,4 +183,5 @@ class Game < ActiveRecord::Base
     self.playedWords << PlayedWord.new(game: self, player: player, letter: letter, word: word, x: x, y: y)
     player.addWord(word)
   end
+
 end
