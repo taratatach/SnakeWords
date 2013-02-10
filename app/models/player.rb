@@ -14,11 +14,11 @@ class Player < ActiveRecord::Base
   end
 
   def addWord(word)
-    self.totalScore += word.length
+    self.update_attribute(:totalScore, self.totalScore + word.length)
   end
   
   def addVictory
-    self.totalWins += 1
+    self.update_attribute(:totalWins, self.totalWins + 1)
   end
 
   def destroy_games

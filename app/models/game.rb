@@ -195,27 +195,31 @@ class Game < ActiveRecord::Base
   # Set pass to false if true
   def saveMove(player, letter, word, x, y)
     if (self.pass?)
-      self.pass = false
+      self.update_attribute(:pass, false)
     end
 
     @grid[x][y] = letter
     self.playedWords << PlayedWord.new(game: self, player: player, letter: letter, word: word, x: x, y: y)
     player.addWord(word)
-    player.save()
-  end
 
-  # Set pass to true if false; end Game otherwise
-  def pass
-    if (self.pass?)
+    # The grid is full, the game is finished
+    if (self.playedWords.size + self.firstWord.length == self.size * self.size)
       end_game
-    else
-      self.pass = true
     end
   end
 
-  # End the game and set the victor
+  # Set pass to true if false; end Game otherwise
+  def pass_turn
+    if (self.pass?)
+      end_game
+    else
+      self.update_attribute(:pass, true)
+    end
+  end
+
+  # End game and set victor
   def end_game
-    self.finished = true
+    self.update_attribute(:finished, true)
 
     s1 = 0
     s2 = 0

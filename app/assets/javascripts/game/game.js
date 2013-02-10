@@ -1,5 +1,31 @@
 
 
+function pass() {
+    $.ajax(
+    {
+        url:"/game/pass",
+        data:{},
+        cache:false,
+        dataType:"json",
+        success:function(finished) {
+            if(finished){
+		end_game();
+            }
+            else{
+		// le jeu n'est pas fini, le joueur est le premier à passer
+		alert("You have passed");
+            }
+        },
+        error:function(xhr,status,error) {
+            alert(error);
+        }
+    });
+}
+
+function end_game() {
+    // la grille est pleine, le jeu est fini
+    alert("Game is finished");
+}
 
 function word(i,j){
         $("#dialog" ).css('display','block') ;
@@ -37,21 +63,22 @@ function send(letter,cellId,word){
         data:{
             word:word,
             letter:letter,
-            x:cellId[0],
-            y:cellId[2]
+            x:cellId.split(".")[0],
+            y:cellId.split(".")[1]
      
         },
         cache:false,
         dataType:"json",
         success:function(result){
-            if(result){
+            if (result.finished) {
+		end_game();
+	    } else if(result.ok) {
                 document.getElementById("target"+cellId).innerHTML=letter;
-//                $('#result').load('/game/show_played_words #result', function() {                 
-//              });
-//                
+		//$('#result').load('/game/show_played_words #result', function() {                 
+		//});
             }
-            else{
-                alert("The word doesn't exist in the dictionnary or is not in the grid")
+            else {
+                alert("The word doesn't exist in the dictionnary or is not in the grid");
             }
         }
         ,

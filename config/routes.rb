@@ -18,8 +18,8 @@ SnakeWords::Application.routes.draw do
   match 'game/join_game'=>'game#join_game'
   
   match 'game/submit_word' => 'game#submit_word'
-  
-  match 'game/refresh_grid'=> 'game#refresh_grid'
+  match 'game/pass' => 'game#pass'
+  match 'game/refresh_grid' => 'game#refresh_grid'
   match 'game/refresh_result'=> 'game#refresh_result'
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

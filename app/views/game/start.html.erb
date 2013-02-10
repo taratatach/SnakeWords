@@ -37,13 +37,13 @@ game <%=session[:current_game]%>
   <%end%>
 </table>
 
-
+<button id="pass" onclick="pass()">Pass</button>
 
 <div id="dialog">
-<label >Letter</label>
-<input type="text" name="letter" id="letter" length="1" maxlength="1" />
-<label >Word</label>
-<input type="text" name="word" id="given_word" />
-
-<input type='button' id='submit'value='submit' onclick=""/>
+  <label >Letter</label>
+  <input type="text" name="letter" id="letter" length="1" maxlength="1" />
+  <label >Word</label>
+  <input type="text" name="word" id="given_word" />
+  
+  <input type='button' id='submit' value='submit' onclick=""/>
 </div>

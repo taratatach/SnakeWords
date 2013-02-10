@@ -76,4 +76,56 @@ class GameTest < ActiveSupport::TestCase
     assert g.grid[0][4] == 'e', "letter isn't inserted in grid"
     assert_equal p1.totalScore, score+5, "player's score isn't updated"
   end
+
+  test "pass_turn function changes pass state in db" do
+    p1 = Player.new(name: "Georges")
+    p2 = Player.new(name: "Georginette")
+    g = Game.new({:size => 5, :dictionary => "anglais.txt", :players => [p1, p2]})
+    assert !g.pass?, "pass is already set to true"
+    g.pass_turn
+    assert g.pass?, "pass_turn doesn't set pass to true"
+  end
+
+  test "two calls to pass_turn ends game" do
+    p1 = Player.new(name: "Georges")
+    p2 = Player.new(name: "Georginette")
+    g = Game.new({:size => 5, :dictionary => "anglais.txt", :players => [p1, p2]})
+    g.pass_turn
+    g.pass_turn
+    assert g.finished?, "game isn't set as finished"
+  end
+
+  test "a call to saveMove after a call to pass_turn toggle back pass to false" do
+    p1 = Player.new(name: "Georges")
+    p2 = Player.new(name: "Georginette")
+    g = Game.new({:size => 5, :dictionary => "anglais.txt", :players => [p1, p2]})
+    g.pass_turn
+    assert g.pass?, "pass_turn doesn't set pass to true"
+    g.saveMove(p2, "e", "ever", 0, 0)
+    assert !g.pass?, "saveMove doesn't set pass to false"
+  end
+
+  test "a full grid ends the game" do
+    p1 = Player.new(name: "Georges")
+    p2 = Player.new(name: "Georginette")
+    g = Game.new({:size => 5, :dictionary => "anglais.txt", :players => [p1, p2]})
+    for i in 0...g.size
+      for j in 0...g.size
+        if (g.grid[i][j] == nil)
+          g.saveMove(p2, "a", "a", i, j)
+        end
+      end
+    end
+    assert g.finished?, "finished is not true when the grid is full"
+  end
+
+  test "ending game sets victor" do
+    p1 = Player.new(name: "Georges")
+    p2 = Player.new(name: "Georginette")
+    assert_equal p2.totalWins, 0, "player already has victories"
+    g = Game.new({:size => 5, :dictionary => "anglais.txt", :players => [p1, p2]})
+    g.saveMove(p2, "e", "ever", 0, 0)
+    g.end_game
+    assert_equal p2.totalWins, 1, "player's victories isn't incremented by end_game"
+  end
 end

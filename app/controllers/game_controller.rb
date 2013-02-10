@@ -60,18 +60,33 @@ class GameController < ApplicationController
       if(!@game.already_played?(@word)&&@game.authorized?(@letter,@word,@x,@y)&&@game.found?(@letter,@word,@x,@y))
         @game. saveMove(@player, @letter, @word,@x,@y)
         respond_to do |format|
-          format.js { render :json => true }
+          format.js { render :json => {"ok" => true, "finished" => @game.finished?}}
         end
       else
          respond_to do |format|
-          format.js { render :json => false }
+          format.js { render :json => {"ok" => false}}
          end  
       end
     else
       throw Exception.new "there is a nil parameter"      
     end
   end
-  
+
+  def pass
+    @game=Game.find(session[:current_game])
+    @game.pass_turn
+    
+    if (@game.finished?)
+      respond_to do |format|
+        format.js { render :json => true }
+      end
+    else
+      respond_to do |format|
+        format.js { render :json => false }
+      end
+    end
+  end
+
   def show_played_words
     
     @game=Game.find(session[:current_game])
