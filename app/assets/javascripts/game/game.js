@@ -1,5 +1,31 @@
 
 
+function pass() {
+    $.ajax(
+    {
+        url:"/game/pass",
+        data:{},
+        cache:false,
+        dataType:"json",
+        success:function(finished) {
+            if(finished){
+		end_game();
+            }
+            else{
+		// le jeu n'est pas fini, le joueur est le premier à passer
+		alert("You have passed");
+            }
+        },
+        error:function(xhr,status,error) {
+            alert(error);
+        }
+    });
+}
+
+function end_game() {
+    // la grille est pleine, le jeu est fini
+    alert("Game is finished");
+}
 
 function word(i,j){
         $("#dialog" ).css('display','block') ;
@@ -11,12 +37,17 @@ function word(i,j){
   function submit_form(i,j) {
                 var letter= $('#letter').val(); 
                 var word= $('#given_word').val(); 
+                if(word==""||letter==""){
+                 alert("Empty field is not allowed!")   
+                 
+                }else{
                 var cellId=i+"."+j
                 send(letter,cellId,word);     
                 $('#letter').val(""); 
                 $('#given_word').val(""); 
                 
                  $( "#dialog" ).css('display','none') ;
+                }
             }
             
   /*          function submit() {
@@ -37,21 +68,21 @@ function send(letter,cellId,word){
         data:{
             word:word,
             letter:letter,
-            x:cellId[0],
-            y:cellId[2]
+            x:cellId.split(".")[0],
+            y:cellId.split(".")[1]
      
         },
         cache:false,
         dataType:"json",
         success:function(result){
-            if(result){
+            if (result.finished) {
+		end_game();
+	    } else if(result.ok) {
                 document.getElementById("target"+cellId).innerHTML=letter;
-//                $('#result').load('/game/show_played_words #result', function() {                 
-//              });
-//                
+		
             }
-            else{
-                alert("The word doesn't exist in the dictionnary or is not in the grid")
+            else {
+                alert("The word doesn't exist in the dictionnary or is not in the grid");
             }
         }
         ,
@@ -74,11 +105,34 @@ var refreshId = setInterval(function()
             cache:false,
             dataType:"json",
             success:function(result){
-                //grid refresh
+                
+                
+               
                 if(result){ 
+                   // checks the turn
+                   if(!result.turn){
+                        $( "#turn" ).css('display','none') ;
+                        $("#pass").prop('disabled', true);
+                        $("#submit").prop('disabled', true);
+                   }
+                   else{
+                       $( "#turn" ).css('display','block') ;
+                        $("#pass").prop('disabled', false);
+                        $("#submit").prop('disabled', false);
+                   }
+                     //grid refresh
+                     var emptyCells=0;
                     for(var i=0;i<result.grid.length;i++){
                         for(var j=0;j<result.grid.length;j++){
-                            document.getElementById("target"+i+"."+j).innerHTML=result.grid[i][j];                    
+                            if(result.grid[i][j]!=null){
+                                
+                            var ele= document.getElementById("target"+i+"."+j)
+                            ele.innerHTML=result.grid[i][j]; 
+                            ele.removeAttribute("onclick");
+                          
+                            }else{
+                                emptyCells+=1;
+                            }
                         } 
                     }
                  //played words refresh
@@ -87,6 +141,9 @@ var refreshId = setInterval(function()
                    var table= document.getElementById("resultTable");
                      table.innerHTML=resultHtml(result.result);  
                      
+                 }
+                 if(emptyCells==0){
+                     alert("Game finished")
                  }
                 }
                 else{
@@ -100,7 +157,7 @@ var refreshId = setInterval(function()
             }
         });
      
-}, 5000);
+}, 3000);
 
 function resultHtml(result) {
  var res='';
@@ -117,7 +174,12 @@ function resultHtml(result) {
   
 }
 
+
 function closeNow(){
    
      $( "#dialog" ).css('display','none') ;
+}
+
+function myTurn(){
+    
 }

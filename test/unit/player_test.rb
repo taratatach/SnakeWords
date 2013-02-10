@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PlayerTest < ActiveSupport::TestCase
   def setup
-    @p1= Player.new(name: "Erwan")
+    @p1= Player.new(name: "test")
   end
   
   test "player initialized" do

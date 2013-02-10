@@ -59,19 +59,35 @@ class GameController < ApplicationController
     if(@word && @letter&& @game&&@player&&@x&&@y)        
       if(!@game.already_played?(@word)&&@game.authorized?(@letter,@word,@x,@y)&&@game.found?(@letter,@word,@x,@y))
         @game. saveMove(@player, @letter, @word,@x,@y)
+       
         respond_to do |format|
-          format.js { render :json => true }
+          format.js { render :json => {"ok" => true, "finished" => @game.finished?}}
         end
       else
          respond_to do |format|
-          format.js { render :json => false }
+          format.js { render :json => {"ok" => false}}
          end  
       end
     else
       throw Exception.new "there is a nil parameter"      
     end
   end
-  
+
+  def pass
+    @game=Game.find(session[:current_game])
+    @game.pass_turn
+    
+    if (@game.finished?)
+      respond_to do |format|
+        format.js { render :json => true }
+      end
+    else
+      respond_to do |format|
+        format.js { render :json => false }
+      end
+    end
+  end
+
   def show_played_words
     
     @game=Game.find(session[:current_game])
@@ -93,11 +109,21 @@ class GameController < ApplicationController
   
   def refresh_grid
     @game=Game.find(session[:current_game])    
-    
+    if(@game.playedWords.length<1)
+      @turn=true;
+        
+  else
+    @turn=(session[:player].name!=@game.playedWords[-1].player.name)
+     if(@game!=nil &&@game.pass?)
+       @turn=!@turn
+     end
+    end
     respond_to do |format|
     # puts @game.playedWords.as_json(:only=>:word,:include => { :player => { :only => :name }})
     # format.js {   render :json => @game.grid}
-    format.js {   render :json => {"result"=>@game.playedWords.as_json(:include=>:word,:include => { :player => { :only => :name }}),"grid"=>@game.grid}}
+  
+     
+    format.js {   render :json => {"result"=>@game.playedWords.as_json(:include=>:word,:include => { :player => { :only => :name }}),"grid"=>@game.grid,"turn"=>@turn}}
     end
   end
   
