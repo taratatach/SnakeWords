@@ -33,7 +33,6 @@ class Game < ActiveRecord::Base
       return
     end
 
-
     for pw in self.playedWords
       @grid[pw.x][pw.y] = pw.letter
     end
@@ -48,8 +47,8 @@ class Game < ActiveRecord::Base
     self.firstWord = ""
     if (self.firstWord == nil)
       throw Exception.new "wtf ??!"
-
     end
+
     begin
       if (self.firstWord == nil)
         throw Exception.new "@words isn't responsible"
@@ -127,16 +126,33 @@ class Game < ActiveRecord::Base
   end
 
   def check(w, _x, _y)
+    puts "w="+w+", x="+_x.to_s+", y="+_y.to_s
     if (w.empty?)
       return []
     end
 
     result = []
-    for p in possibilities(_x, _y, w[0])
+    cells = possibilities(_x, _y, w[0])
+    if (cells == [])
+      return nil
+    end
+
+    for p in cells
       rest = check(w[1..-1], p[:x], p[:y])
+
+      if (rest == nil)
+        next
+      elsif (rest == [])
+        result.push([p])
+      else
+        rest.uniq.each do |r|
+          result.push([p].concat(r))
+        end
+      end
+      #result.push(step)
+
       #puts "word[1..-1] : " + w[1..-1]
       #puts "rest : " + rest.to_s
-      result.push(step = (rest == [] ? [p] : [p].concat(rest.uniq).flatten(1)))
       #puts "step: " + step.to_s
     end
     #puts "RESULT : " + result.to_s
@@ -150,13 +166,14 @@ class Game < ActiveRecord::Base
     
     start = 0
     while ((index = word.index(letter, start)) != nil)
+      #puts "index = "+index.to_s
       # get all solutions for the left part of the word
       left = check(word[0...index].reverse, x, y)
-      left = (left == []) ? [[]] : left
+      left = (left == [] || left == nil) ? [[]] : left
       #puts "\nleft = " + left.to_s
       # get all solutions for the right part of the word
       right = check(word[index+1..-1], x, y)
-      right = (right == []) ? [[]] : right
+      right = (right == [] || right == nil) ? [[]] : right
       #puts "\nright = " + right.to_s
       left.each do |solL|
         right.each do |solR|
@@ -165,7 +182,7 @@ class Game < ActiveRecord::Base
           sol = solL.reverse.concat([{x: x, y: y}]).concat(solR)
           #puts "\n\nSOL : "+sol.to_s
           # if the solution doesn't use twice the same cell, it is valid
-          if (sol.uniq.size == sol.size)
+          if (sol.uniq.size == sol.size && sol.size == word.length)
             return true
           end
         end
@@ -173,15 +190,13 @@ class Game < ActiveRecord::Base
       start = index + 1
     end
     return false
-
   end  
-
 
   # Create new PlayedWord object and add it to the list + insert letter in grid
   def saveMove(player, letter, word, x, y)
     @grid[x][y] = letter
     self.playedWords << PlayedWord.new(game: self, player: player, letter: letter, word: word, x: x, y: y)
     player.addWord(word)
+    player.save()
   end
-
 end

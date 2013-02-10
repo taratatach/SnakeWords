@@ -20,7 +20,10 @@
 /*.txt
 
 # Ignore backup files
-*/*~
+/**/*~
 
 # Ignore Gemlock file
 Gemfile.lock
+
+# Ignore db file
+/db/schema.rb
