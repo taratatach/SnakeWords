@@ -3,7 +3,7 @@ class Game < ActiveRecord::Base
   validates :players, :presence => true
   validates :dictionary, :presence => true
 
-  attr_accessible :players, :dictionary, :size, :firstWord, :fwX, :fwY
+  attr_accessible :players, :dictionary, :size, :firstWord, :fwX, :fwY, :pass
   attr_reader :grid, :words
 
   has_and_belongs_to_many :players
@@ -193,10 +193,44 @@ class Game < ActiveRecord::Base
   end  
 
   # Create new PlayedWord object and add it to the list + insert letter in grid
+  # Set pass to false if true
   def saveMove(player, letter, word, x, y)
+    if (self.pass)
+      self.pass = false
+    end
+
     @grid[x][y] = letter
     self.playedWords << PlayedWord.new(game: self, player: player, letter: letter, word: word, x: x, y: y)
     player.addWord(word)
     player.save()
+  end
+
+  # Set pass to true if false; end Game otherwise
+  def pass
+    if (self.pass)
+      end_game
+    else
+      self.pass = true
+    end
+  end
+
+  # End the game and set the victor
+  def end_game
+    self.finished = true
+
+    s1 = 0
+    s2 = 0
+    for pw in self.playedWords
+      if (pw.player == self.players[0])
+        s1 += pw.word.length
+      else
+        s2 += pw.word.length
+      end
+    end
+    if (s1 > s2)
+      players[0].addVictory
+    elsif (s1 < s2)
+      players[1].addVictory
+    end
   end
 end
