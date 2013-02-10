@@ -11,17 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207162941) do
+ActiveRecord::Schema.define(:version => 20130210154455) do
 
   create_table "games", :force => true do |t|
     t.integer  "size"
     t.string   "dictionary"
     t.boolean  "finished"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.string   "firstWord",  :default => ""
     t.integer  "fwX",        :default => 0
     t.integer  "fwY",        :default => 0
+    t.boolean  "pass",       :default => false
   end
 
   create_table "games_players", :force => true do |t|

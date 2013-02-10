@@ -57,7 +57,7 @@ class GameController < ApplicationController
     @y=params[:y].to_i
     
     if(@word && @letter&& @game&&@player&&@x&&@y)        
-      if(@game.found?(@letter,@word, @x, @y))
+      if(!@game.already_played?(@word)&&@game.authorized?(@letter,@word,@x,@y)&&@game.found?(@letter,@word,@x,@y))
         @game. saveMove(@player, @letter, @word,@x,@y)
         respond_to do |format|
           format.js { render :json => true }

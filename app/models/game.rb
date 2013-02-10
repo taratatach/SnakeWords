@@ -126,7 +126,7 @@ class Game < ActiveRecord::Base
   end
 
   def check(w, _x, _y)
-    puts "w="+w+", x="+_x.to_s+", y="+_y.to_s
+    #puts "w="+w+", x="+_x.to_s+", y="+_y.to_s
     if (w.empty?)
       return []
     end
@@ -153,7 +153,6 @@ class Game < ActiveRecord::Base
 
       #puts "word[1..-1] : " + w[1..-1]
       #puts "rest : " + rest.to_s
-      #puts "step: " + step.to_s
     end
     #puts "RESULT : " + result.to_s
     return result
@@ -195,7 +194,7 @@ class Game < ActiveRecord::Base
   # Create new PlayedWord object and add it to the list + insert letter in grid
   # Set pass to false if true
   def saveMove(player, letter, word, x, y)
-    if (self.pass)
+    if (self.pass?)
       self.pass = false
     end
 
@@ -207,7 +206,7 @@ class Game < ActiveRecord::Base
 
   # Set pass to true if false; end Game otherwise
   def pass
-    if (self.pass)
+    if (self.pass?)
       end_game
     else
       self.pass = true

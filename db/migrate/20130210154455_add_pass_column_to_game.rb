@@ -1,6 +1,6 @@
 class AddPassColumnToGame < ActiveRecord::Migration
   def up
-    add_column :games, :pass, :boolean, { :default => false }
+    add_column :games, :pass, :boolean, :default => false
   end
 
   def down
