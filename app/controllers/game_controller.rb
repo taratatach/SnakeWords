@@ -55,7 +55,7 @@ class GameController < ApplicationController
     @player=session[:player]
     @x=params[:x].to_i
     @y=params[:y].to_i
-    
+    puts @game.found?(@letter,@word,@x,@y)
     if(@word && @letter&& @game&&@player&&@x&&@y)        
       if(!@game.already_played?(@word)&&@game.authorized?(@letter,@word,@x,@y)&&@game.found?(@letter,@word,@x,@y))
         @game. saveMove(@player, @letter, @word,@x,@y)

@@ -31,11 +31,21 @@ $border: 1px;
 .result {
 
 float: right;
+margin-right:2%;
+margin-top: 3%;
+background:$blue;
+color:white;
+border-radius:3px; 
 
+}
+.title{
+color:white;
 }
 .resultTable{
 border: 1px $blue solid;
 text-align:center;
+margin-top: 3%;
+
 }
 .thead{
 font-weight:bold;
@@ -47,19 +57,34 @@ width: 30%;
 height: 20px;
  display: inline-block;
 }
-.ui-dialog { margin-right: 10px;
- }
+
 #dialog{
-border: 1px $blue solid;
-border-radius: 5px;
-display:none;
+    border: 1px $blue solid;
+    border-radius: 5px;
+    width:30%;
+    height: 10%;
+    display:none;
+    margin: 10% auto;
+    background:$blue;
+    color:white;
 
 }
 
 label, input { display:block; }
 input.text { margin-bottom:12px; width:95%; padding: .4em; }
-fieldset { padding:0; border:0; margin-top:25px; }
+
+input {margin: 2%}
 
 #letter{
-width: 10px;
+    width: 20px;
+}
+#submit{
+     border-radius: 2px;
+     width:20%;
+     height:10%;
+     margin-left:auto;
+}
+
+.back_to_menu{
+margin-left: 2%;
 }

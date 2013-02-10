@@ -3,10 +3,10 @@
 <script>
  
 </script>  
-game <%=session[:current_game]%>
+<div class="game_number"> Game #<%=session[:current_game]%> </div>
 
 <div class="result" id="result">
-  <h1> played words</h1>
+  <h1 class="title"> played words</h1>
   
   <div id="resultTable" class="resultTable"size="<%=@game.playedWords.size%>"> 
   <div class="thead" ><span>Player</span>
@@ -46,4 +46,5 @@ game <%=session[:current_game]%>
 <input type="text" name="word" id="given_word" />
 
 <input type='button' id='submit'value='submit' onclick=""/>
+<input type="button" value="close" onclick="closeNow()"/>
 </div>

@@ -1,10 +1,12 @@
 
-
+<div class="menu">
 <h1> MENU </h1>
 <h3 class="current_player"> Hello <%=session[:player].name%> </h3>
-<ul>
-  <li> <%=link_to 'New Game','pick_challenger'%></li>
-  <li> <%=link_to 'Proposed games','proposed_games'%></li>
-  <li><%=link_to 'High Scores','high_score'%></li>
-  <li>Credits</>
-</ul>
+
+
+  <div> <%=link_to 'New Game','pick_challenger'%></div>
+  <div> <%=link_to 'Proposed games','proposed_games'%></div>
+  <div><%=link_to 'High Scores','high_score'%></div>
+  <div>Credits</div>
+
+</div>

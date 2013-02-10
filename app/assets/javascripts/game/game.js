@@ -116,3 +116,8 @@ function resultHtml(result) {
   return res;
   
 }
+
+function closeNow(){
+   
+     $( "#dialog" ).css('display','none') ;
+}
