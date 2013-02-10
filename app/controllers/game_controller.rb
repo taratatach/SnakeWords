@@ -28,9 +28,14 @@ class GameController < ApplicationController
     @p2=session[:challenger]
     @size=(params[:size]==nil || params[:size].to_i>10 || params[:size].to_i<5)? 5: params[:size].to_i;
    
+    @countGames=Game.where("players.name = ? and finished =?",session[:player].name,false).includes(:players).count
     if(flash[:isStarted])
       @game=Game.find(session[:current_game])
       flash[:isStarted]=true
+       
+    elsif(@countGames>5)
+      flash[:error]="You have already 5 started games"
+      redirect_to :action=>'menu', :controller=>'menu'
     elsif(@p1!=nil && @p2!=nil)
       @game=Game.create(:size=>@size, :dictionary=>"anglais.txt", :players=>[@p1,@p2])      
       session[:current_game]=@game.id   
@@ -51,7 +56,7 @@ class GameController < ApplicationController
     @y=params[:y].to_i
     
     if(@word && @letter&& @game&&@player&&@x&&@y)        
-      if(@game.found?(@letter,@word, @x, @y))
+      if(@game.authorized?(@letter,@word, @x, @y)&&@game.found?(@letter,@word, @x, @y))
         @game. saveMove(@player, @letter, @word,@x,@y)
         respond_to do |format|
           format.js { render :json => true }
@@ -67,11 +72,22 @@ class GameController < ApplicationController
   end
   
   def show_played_words
+    
     @game=Game.find(session[:current_game])
   end
   
   def proposed_games
-    @games= Game.where("players.name <= ?",session[:player].name ).includes(:players)
+   if(session[:player])
+     @games= Game.where("players.name = ? AND finished=?",session[:player].name,false ).includes(:players)
+     #@games=Game.find(:all)
+     
+     @name=session[:player].name
+     
+    else
+   flash[:error]="You're not signed in!"
+   redirect_to :action=>"index", :controller=>"menu" 
+ end
+   
   end
   
   def refresh_grid

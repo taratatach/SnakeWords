@@ -5,6 +5,7 @@ SnakeWords::Application.routes.draw do
 
   match 'menu'=>'menu#index', :via => :get
   match 'menu/new_game'=>'menu#new_game'
+  match 'menu/high_score'=>'menu#high_score'
   match 'menu'=>'menu#signin',:via => :post
   match 'menu/menu'=>'menu#menu',:via => :get
   match 'menu/pick_challenger'=>'menu#pick_challenger',:via => :get

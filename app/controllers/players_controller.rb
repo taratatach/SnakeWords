@@ -1,5 +1,11 @@
 class PlayersController < ApplicationController
   def  index
+      
+    if(!session[:player])
+   
+      flash[:error]="You're not signed in!"
+      redirect_to :action=>"index", :controller=>"menu"
+    else
    @allPlayers=Player.find(:all)
    @players=[]
    for player in @allPlayers
@@ -7,6 +13,7 @@ class PlayersController < ApplicationController
        @players.push(player)
      end
    end
+    end
   end
   
   def create

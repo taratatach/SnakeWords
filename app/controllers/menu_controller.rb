@@ -7,7 +7,7 @@ class MenuController < ApplicationController
     def signin
       @p=Player.find_by_name(params[:name])
       if(@p==nil)
-        flash[:alert]="Wrong player name"
+        flash[:error]="Wrong player name"
         redirect_to :action=>index
       else
         session[:player]=@p
@@ -18,7 +18,10 @@ class MenuController < ApplicationController
     end
     
     def menu
-      
+      if(!session[:player])
+        flash[:error]="You're not signed in!"
+        redirect_to :action=>'index'
+      end
     end
     def pick_challenger
       redirect_to :action=>'index', :controller=>'players'      
@@ -26,6 +29,17 @@ class MenuController < ApplicationController
     
     def proposed_games
       redirect_to :action=>'proposed_games', :controller=>'game'  
+    end
+    
+    def high_score
+      
+      @players=Player.find(:all,:order=>"totalScore DESC",  :limit => 5)
+      if(!@players)
+        flash[error]="no player in the database"
+        redirect_to :action=>"index" 
+        
+      end
+
     end
   
 end

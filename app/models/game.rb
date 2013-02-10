@@ -30,10 +30,10 @@ class Game < ActiveRecord::Base
     insert_word(self.firstWord, self.fwX, self.fwY)
 
     if (self.playedWords == nil)
-      
       return
     end
- 
+
+
     for pw in self.playedWords
       @grid[pw.x][pw.y] = pw.letter
     end
@@ -41,10 +41,14 @@ class Game < ActiveRecord::Base
 
   # Find random word in dictionary, set self.firstWord and insert it in random place
   def init_first_word()
-  
+    #"if (self.playedWords != nil)
+#      return
+#    end"
+
     self.firstWord = ""
     if (self.firstWord == nil)
       throw Exception.new "wtf ??!"
+
     end
     begin
       if (self.firstWord == nil)
@@ -58,7 +62,7 @@ class Game < ActiveRecord::Base
 
     self.fwX = Random.rand(self.size)
     self.fwY = Random.rand(self.size - self.firstWord.length + 1)
-  
+    
     insert_word(self.firstWord, self.fwX, self.fwY)
   end
 
@@ -73,9 +77,7 @@ class Game < ActiveRecord::Base
 
   # Inserts word at given position
   def insert_word(word, x, y)
-   
     for i in 0...word.length
-     
       @grid[x][y+i] = word[i]
     end
   end
@@ -96,16 +98,16 @@ class Game < ActiveRecord::Base
 
   # Return true if the :word contains :letter, grid[:x][:y] is empty and :word is in dict
   def authorized?(letter, word, x, y)
-    (0...self.size).member?(x) && (0...self.size).member?(y) && (@grid[x][y] == nil) && 
+    (0...self.size).member?(x) && (0...self.size).member?(y) && (@grid[x][y] == nil) &&
       @words.include?(word) && (/#{letter}/ =~ word)
   end
 
   # Return true if :word can be found in grid with :letter in grid[:x][:y]
   # Doesn't work for a word like DCBADR starting with A on the following grid :
-  #                                CBC
-  #                                DADR
-  # because the D on the right could be checked by the 'left' function 
-  #  while it should be checked by the 'right' function
+  # CBC
+  # DADR
+  # because the D on the right could be checked by the 'left' function
+  # while it should be checked by the 'right' function
   # think in terms of pointers arrays
   def possibilities(x, y, letter)
     p = []

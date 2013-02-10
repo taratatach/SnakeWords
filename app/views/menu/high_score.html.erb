@@ -1,0 +1,24 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<h1> Top 5 players </h1>
+<table>
+  <th>Rank </th>
+  <th>Name</th>
+  <th>Total won games</th>
+  <th>Total Score</th>
+  <%rank=0%>
+<%@players.each do |player| %>
+<%rank+=1%>
+  <tr>
+    <td> <%=rank%></td>
+    <td><%=player.name%></td>
+    <td><%=player.totalWins%></td>
+    <td><%=player.totalScore%></td>
+    <td><%=link_to 'challenge',:controller=>"game",:action=>"new_game",:id=>player.name%></td>
+  </tr>
+
+<%end %>
+</table>
