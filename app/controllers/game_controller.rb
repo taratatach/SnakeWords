@@ -8,6 +8,7 @@ class GameController < ApplicationController
     end
     
   end
+  
   def join_game
     @game=Game.find(params[:id])
     @challenger=nil
@@ -56,7 +57,7 @@ class GameController < ApplicationController
     @y=params[:y].to_i
     
     if(@word && @letter&& @game&&@player&&@x&&@y)        
-      if(@game.authorized?(@letter,@word, @x, @y)&&@game.found?(@letter,@word, @x, @y))
+      if(@game.found?(@letter,@word, @x, @y))
         @game. saveMove(@player, @letter, @word,@x,@y)
         respond_to do |format|
           format.js { render :json => true }
@@ -94,8 +95,9 @@ class GameController < ApplicationController
     @game=Game.find(session[:current_game])    
     
     respond_to do |format|
-     
-     format.js {   render :json => @game.grid}
+    # puts @game.playedWords.as_json(:only=>:word,:include => { :player => { :only => :name }})
+    # format.js {   render :json => @game.grid}
+    format.js {   render :json => {"result"=>@game.playedWords.as_json(:include=>:word,:include => { :player => { :only => :name }}),"grid"=>@game.grid}}
     end
   end
   
@@ -104,7 +106,7 @@ class GameController < ApplicationController
     
     respond_to do |format|
      
-     format.js {   render :json => @game.playedWords.as_json(:only=>:word,:include => { :player => { :only => :name }})}
+     format.js {   render :json => {"result"=>@game.playedWords.as_json(:only=>:word,:include => { :player => { :only => :name }}),"grid"=>@game.grid}}
     end  
   end
 end

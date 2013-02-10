@@ -4,15 +4,21 @@
 $blue: #3bbfce;
 $margin: 16px;
 $border: 1px;
+*{
+     margin:0;
+     padding:0;         
+ }
 #grid {
 
     margin-left: auto;
     margin-right:auto;
     border: $border $blue solid;
+    border-radius:3px; 
 }
 #grid th{
     border: $border $blue solid;
     padding-right: 10%;
+    
 }
 #grid td{
     border: 1px $blue solid;
@@ -27,16 +33,26 @@ $border: 1px;
 float: right;
 
 }
-
 .resultTable{
 border: 1px $blue solid;
-width: 200px;
+text-align:center;
+}
+.thead{
+font-weight:bold;
+}
+
+.result span{
+border: 1px $blue solid;
+width: 30%;
+height: 20px;
+ display: inline-block;
 }
 .ui-dialog { margin-right: 10px;
  }
 #dialog{
 border: 1px $blue solid;
 border-radius: 5px;
+display:none;
 
 }
 

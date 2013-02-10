@@ -7,22 +7,23 @@ game <%=session[:current_game]%>
 
 <div class="result" id="result">
   <h1> played words</h1>
-  <table>
-    <tr>
-     <th>Player</th>
-     <th>Word</th>
-     <th>score</th>         
-    </tr>
+  
+  <div id="resultTable" class="resultTable"size="<%=@game.playedWords.size%>"> 
+  <div class="thead" ><span>Player</span>
+      <span>Word</span>
+     <span>score</span>         
+    </div>
 <%if(@game.playedWords)%>
 <%@game.playedWords.size.times do |i| %>      
-    <tr>
-    <td><%=@game.playedWords[i].player.name%></td>
-    <td><%=@game.playedWords[i].word%></td>
-     <td><%=@game.playedWords[i].word.length%></td>
-    </tr>
+    <div id=<%=i%>"row" >
+    <span id="name"<%=i%>><%=@game.playedWords[i].player.name%></span>
+    <span id="word"<%=i%>><%=@game.playedWords[i].word%></span>
+     <span id="score"<%=i%>><%=@game.playedWords[i].word.length%></span>
+    </div>
   <%end%>
     <%end%> 
-  </table>
+    </div>
+  
 </div>
 
 <table id="grid">
@@ -30,21 +31,19 @@ game <%=session[:current_game]%>
     <tr>
 
       <%  @game.size.times do |j| %>
-      <td  id='target<%=  "#{i}.#{j}"%>' onclick="word(<%=i%>,<%=j%>)"><%=  @game.grid[i][j] %></td>
+      <td  id='target<%=  "#{i}.#{j}"%>' onclick="word(<%=i%>,<%=j%>)"><%= @game.grid[i][j] %></td>
       <%end%>
     </tr>
   <%end%>
 </table>
 
-<div id="dialog" >
 
-<form>
-<fieldset>
-<label for="letter">Letter</label>
-<input type="text" name="letter" id="letter" class="text ui-widget-content ui-corner-all" length="1" maxlength="1" />
-<label for="letter">Word</label>
-<input type="text" name="word" id="word" class="text ui-widget-content ui-corner-all" />
-</fieldset>
-</form>
+
+<div id="dialog">
+<label >Letter</label>
+<input type="text" name="letter" id="letter" length="1" maxlength="1" />
+<label >Word</label>
+<input type="text" name="word" id="given_word" />
+
+<input type='button' id='submit'value='submit' onclick=""/>
 </div>
-
