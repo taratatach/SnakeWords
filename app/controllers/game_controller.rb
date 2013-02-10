@@ -13,7 +13,7 @@ class GameController < ApplicationController
     @game=Game.find(params[:id])
     @challenger=nil
     @game.players.each do |p|
-    @challenger=(p.name!=session[:player].name)? p : @challenger      
+      @challenger=(p.name!=session[:player].name)? p : @challenger      
     end
     
     if(@challenger) 
@@ -64,9 +64,9 @@ class GameController < ApplicationController
           format.js { render :json => {"ok" => true, "finished" => @game.finished?}}
         end
       else
-         respond_to do |format|
+        respond_to do |format|
           format.js { render :json => {"ok" => false}}
-         end  
+        end  
       end
     else
       throw Exception.new "there is a nil parameter"      
@@ -94,45 +94,44 @@ class GameController < ApplicationController
   end
   
   def proposed_games
-   if(session[:player])
-     @games= Game.where("players.name = ? AND finished=?",session[:player].name,false ).includes(:players)
-     #@games=Game.find(:all)
+    if(session[:player])
+      @games= Game.where("players.name = ? AND finished=?",session[:player].name,false ).includes(:players)
+      #@games=Game.find(:all)
      
-     @name=session[:player].name
+      @name=session[:player].name
      
     else
-   flash[:error]="You're not signed in!"
-   redirect_to :action=>"index", :controller=>"menu" 
- end
+      flash[:error]="You're not signed in!"
+      redirect_to :action=>"index", :controller=>"menu" 
+    end
    
   end
   
   def refresh_grid
     @game=Game.find(session[:current_game])    
-    if(@game.playedWords.length<1)
-      @turn=true;
-        
-  else
-    @turn=(session[:player].name!=@game.playedWords[-1].player.name)
-     if(@game!=nil &&@game.pass?)
-       @turn=!@turn
-     end
+    if(@game.playedWords.length<1 && @game.players[0].name=session[:player].name)
+      @turn=true;        
+    else
+      @turn=(session[:player].name!=@game.playedWords[-1].player.name)
+      if(@game!=nil &&@game.pass?)
+        @turn=!@turn
+      end
     end
     respond_to do |format|
-    # puts @game.playedWords.as_json(:only=>:word,:include => { :player => { :only => :name }})
-    # format.js {   render :json => @game.grid}
+      # puts @game.playedWords.as_json(:only=>:word,:include => { :player => { :only => :name }})
+      # format.js {   render :json => @game.grid}
   
      
-    format.js {   render :json => {"result"=>@game.playedWords.as_json(:include=>:word,:include => { :player => { :only => :name }}),"grid"=>@game.grid,"turn"=>@turn}}
+      format.js {   render :json => {"result"=>@game.playedWords.as_json(:include=>:word,:include => { :player => { :only => :name }}),"grid"=>@game.grid,"turn"=>@turn,"finished"=>@game.finished?}}
     end
   end
   
-   def refresh_result
+  def refresh_result
     @game=Game.find(session[:current_game])    
     
     respond_to do |format|
      
-     format.js {   render :json => {"result"=>@game.playedWords.as_json(:only=>:word,:include => { :player => { :only => :name }}),"grid"=>@game.grid}}
+      format.js {   render :json => {"result"=>@game.playedWords.as_json(:only=>:word,:include => { :player => { :only => :name }}),"grid"=>@game.grid}}
     end  
   end
 end

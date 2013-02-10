@@ -25,6 +25,8 @@ function pass() {
 function end_game() {
     // la grille est pleine, le jeu est fini
     alert("Game is finished");
+   window.location.replace("/menu/menu");  
+    
 }
 
 function word(i,j){
@@ -110,6 +112,11 @@ var refreshId = setInterval(function()
                
                 if(result){ 
                    // checks the turn
+                   if(result.finished){
+                      
+                       end_game();
+                       return;
+                   }
                    if(!result.turn){
                         $( "#turn" ).css('display','none') ;
                         $("#pass").prop('disabled', true);
@@ -143,7 +150,8 @@ var refreshId = setInterval(function()
                      
                  }
                  if(emptyCells==0){
-                     alert("Game finished")
+                     
+                     end_game();
                  }
                 }
                 else{
