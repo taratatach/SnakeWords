@@ -23,9 +23,23 @@ function pass() {
 }
 
 function end_game() {
-    // la grille est pleine, le jeu est fini
-    alert("Game is finished");
-   window.location.replace("/menu/menu");  
+    // la grille est pleine ou les 2 joueurs ont passé, le jeu est fini
+    $.ajax(
+    {
+        url:"/game/winner",
+        data:{},
+        cache:false,
+        dataType:"json",
+        success:function(winner) {
+           alert("the winner is "+ winner.name+"!!!") ;
+           window.location.replace("/menu/menu");  
+        },
+        error:function(xhr,status,error) {
+            alert(error);
+        }
+    });
+    
+   
     
 }
 
@@ -36,6 +50,7 @@ function word(i,j){
   //  $( "#dialog" ).data('id',""+i+"."+j).dialog( "open" ); 
    
 }
+
   function submit_form(i,j) {
                 var letter= $('#letter').val(); 
                 var word= $('#given_word').val(); 
@@ -52,16 +67,8 @@ function word(i,j){
                 }
             }
             
-  /*          function submit() {
-                var letter= $('#letter').val(); 
-                var word= $('#word').text(); 
-                var cellId=$(this).data('id');
-                send(letter,cellId,word);              
-                 $('#letter').val("");
-                 $('#word').text(""); 
-                 $( "#dialog" ).css('display','block') ;
-            }*/
 
+//requete ajax pour verifier si une lettre est correctement ajouté
 function send(letter,cellId,word){
     $.ajax(
     {
@@ -84,7 +91,7 @@ function send(letter,cellId,word){
 		
             }
             else {
-                alert("The word doesn't exist in the dictionnary or is not in the grid");
+                alert("The word doesn't exist in the dictionary or is not in the grid");
             }
         }
         ,
@@ -165,7 +172,7 @@ var refreshId = setInterval(function()
             }
         });
      
-}, 3000);
+}, 2000);
 
 function resultHtml(result) {
  var res='';
@@ -188,6 +195,4 @@ function closeNow(){
      $( "#dialog" ).css('display','none') ;
 }
 
-function myTurn(){
-    
-}
+

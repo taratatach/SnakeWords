@@ -21,6 +21,9 @@ SnakeWords::Application.routes.draw do
   match 'game/pass' => 'game#pass'
   match 'game/refresh_grid' => 'game#refresh_grid'
   match 'game/refresh_result'=> 'game#refresh_result'
+  
+  match 'game/winner'=> 'game#winner'
+  
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

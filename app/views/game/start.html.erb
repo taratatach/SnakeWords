@@ -4,7 +4,20 @@
  
 </script>  
 <div class="game_number"> Game #<%=session[:current_game]%> </div>
-<h1 id="turn"> YOU'RE TURN </h1>
+<h1 id="turn"> YOUR TURN </h1>
+
+
+<div id="dialog">
+
+<label >Letter</label>
+<input type="text" name="letter" id="letter" length="1" maxlength="1" />
+<label >Word</label>
+<input type="text" name="word" id="given_word" />
+
+<input type='button' id='submit'value='submit' onclick=""/>
+<input type="button" value="close" onclick="closeNow()"/>
+</div>
+
 <div class="result" id="result">
   <h1 class="title"> played words</h1>
   
@@ -42,15 +55,4 @@
 </table>
 
 <button id="pass" onclick="pass()">Pass</button>
-
-<div id="dialog">
-
-<label >Letter</label>
-<input type="text" name="letter" id="letter" length="1" maxlength="1" />
-<label >Word</label>
-<input type="text" name="word" id="given_word" />
-
-<input type='button' id='submit'value='submit' onclick=""/>
-<input type="button" value="close" onclick="closeNow()"/>
-</div>
 

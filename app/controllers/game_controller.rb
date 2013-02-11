@@ -108,9 +108,11 @@ class GameController < ApplicationController
   end
   
   def refresh_grid
-    @game=Game.find(session[:current_game])    
-    if(@game.playedWords.length<1 && @game.players[0].name=session[:player].name)
-      @turn=true;        
+    @game=Game.find(session[:current_game])  
+      
+    if(@game.playedWords.length<1)
+      @turn= (@game.players[0].name==session[:player].name)
+     
     else
       @turn=(session[:player].name!=@game.playedWords[-1].player.name)
       if(@game!=nil &&@game.pass?)
@@ -132,6 +134,27 @@ class GameController < ApplicationController
     respond_to do |format|
      
       format.js {   render :json => {"result"=>@game.playedWords.as_json(:only=>:word,:include => { :player => { :only => :name }}),"grid"=>@game.grid}}
+    end  
+  end
+  def winner
+    @game=Game.find(session[:current_game])    
+    s1 = 0
+    s2 = 0
+    for pw in @game.playedWords
+      if (pw.player == @game.players[0])
+        s1 += pw.word.length
+      else
+        s2 += pw.word.length
+      end
+    end
+    if (s1 > s2)
+      @name=@game.players[0].name
+    elsif (s1 < s2)
+      @name=@game.players[1].name
+    end
+    respond_to do |format|
+     
+      format.js {   render :json =>{"name"=>@name }}
     end  
   end
 end
