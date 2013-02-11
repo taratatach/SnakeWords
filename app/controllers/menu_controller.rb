@@ -16,6 +16,13 @@ class MenuController < ApplicationController
       end
       
     end
+    def signout
+     session[:player]=nil;
+      
+        redirect_to :action=>'menu'
+     
+      
+    end
     
     def menu
       if(!session[:player])

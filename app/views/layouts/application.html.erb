@@ -8,7 +8,9 @@
 </head>
 <body>
   <div class="header"> SNAKE WORDS</div>
+  <div  class="sign_out" ><%= link_to "Sign out", "/menu/signout"%> </div>
   <div  class="back_to_menu" ><%= link_to "Back to menu", "/menu/menu"%> </div>
+  
 <div class="notice"><%=flash[:notice]%> </div>
 <div class="error"><%=flash[:error]%> </div>
 <%= yield %>

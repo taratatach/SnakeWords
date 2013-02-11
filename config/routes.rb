@@ -7,6 +7,7 @@ SnakeWords::Application.routes.draw do
   match 'menu/new_game'=>'menu#new_game'
   match 'menu/high_score'=>'menu#high_score'
   match 'menu'=>'menu#signin',:via => :post
+  match 'menu/signout'=>'menu#signout'
   match 'menu/menu'=>'menu#menu',:via => :get
   match 'menu/pick_challenger'=>'menu#pick_challenger',:via => :get
   
@@ -23,6 +24,7 @@ SnakeWords::Application.routes.draw do
   match 'game/refresh_result'=> 'game#refresh_result'
   
   match 'game/winner'=> 'game#winner'
+  
   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

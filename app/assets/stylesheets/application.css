@@ -43,3 +43,7 @@
 .back_to_menu,.game_number{
 margin-left: 2%;
 }
+.sign_out{
+    float:right;
+    margin-right: 2%;
+}
