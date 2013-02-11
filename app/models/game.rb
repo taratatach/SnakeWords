@@ -84,7 +84,7 @@ class Game < ActiveRecord::Base
   # Return true if :word has already been played during the game
   def already_played?(word)
     if (self.playedWords == nil)
-      return false
+      return word == self.firstWord
     end
 
     for pw in self.playedWords
@@ -92,7 +92,7 @@ class Game < ActiveRecord::Base
         return true
       end
     end
-    return false
+    return word == self.firstWord
   end
 
   # Return true if the :word contains :letter, grid[:x][:y] is empty and :word is in dict

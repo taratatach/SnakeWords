@@ -128,4 +128,14 @@ class GameTest < ActiveSupport::TestCase
     g.end_game
     assert_equal p2.totalWins, 1, "player's victories isn't incremented by end_game"
   end
+
+  test "can't play twice the same word" do
+    p1 = Player.new(name: "Georges")
+    p2 = Player.new(name: "Georginette")
+    g = Game.new({:size => 5, :dictionary => "anglais.txt", :players => [p1, p2]})
+    assert g.already_played?(g.firstWord), "can play the first inserted word"
+    g.saveMove(p1, "e", "ever", 0, 0)
+    assert g.already_played?("ever"), "can play twice the same word"
+    assert !g.already_played?("bonjour"), "bonjour is detected as already played"
+  end
 end

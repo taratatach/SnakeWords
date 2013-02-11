@@ -57,16 +57,22 @@ class GameController < ApplicationController
     @y=params[:y].to_i
     puts @game.found?(@letter,@word,@x,@y)
     if(@word && @letter&& @game&&@player&&@x&&@y)        
-      if(!@game.already_played?(@word)&&@game.authorized?(@letter,@word,@x,@y)&&@game.found?(@letter,@word,@x,@y))
-        @game. saveMove(@player, @letter, @word,@x,@y)
-       
-        respond_to do |format|
-          format.js { render :json => {"ok" => true, "finished" => @game.finished?}}
+      if (!@game.already_played?(@word))
+        if (@game.authorized?(@letter,@word,@x,@y)&&@game.found?(@letter,@word,@x,@y))
+          @game. saveMove(@player, @letter, @word,@x,@y)
+          
+          respond_to do |format|
+            format.js { render :json => {"ok" => true, "finished" => @game.finished?}}
+          end
+        else
+          respond_to do |format|
+            format.js { render :json => {"ok" => false}}
+          end  
         end
       else
         respond_to do |format|
-          format.js { render :json => {"ok" => false}}
-        end  
+          format.js { render :json => {"played" => true}}
+        end
       end
     else
       throw Exception.new "there is a nil parameter"      

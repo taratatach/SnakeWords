@@ -14,29 +14,31 @@
 <label >Word</label>
 <input type="text" name="word" id="given_word" />
 
-<input type='button' id='submit'value='submit' onclick=""/>
+<input type="button" id="submit" value="submit"/>
 <input type="button" value="close" onclick="closeNow()"/>
 </div>
 
 <div class="result" id="result">
   <h1 class="title"> played words</h1>
   
-  <div id="resultTable" class="resultTable"size="<%=@game.playedWords.size%>"> 
-  <div class="thead" ><span>Player</span>
-      <span>Word</span>
-     <span>score</span>         
-    </div>
-<%if(@game.playedWords)%>
-<%@game.playedWords.size.times do |i| %>      
-    <div id=<%=i%>"row" >
-    <span id="name"<%=i%>><%=@game.playedWords[i].player.name%></span>
-    <span id="word"<%=i%>><%=@game.playedWords[i].word%></span>
-     <span id="score"<%=i%>><%=@game.playedWords[i].word.length%></span>
-    </div>
-  <%end%>
+  <div id="resultTable" class="resultTable" data-size="<%=@game.playedWords.size%>"> 
+  <table>
+    <tr>
+      <th>Player</th>
+      <th>Word</th>
+      <th>score</th>         
+    </tr>
+    <%if(@game.playedWords)%>
+    <%@game.playedWords.size.times do |i| %>      
+    <tr>
+      <td><%=@game.playedWords[i].player.name%></td>
+      <td><%=@game.playedWords[i].word%></td>
+      <td><%=@game.playedWords[i].word.length%></td>
+    </tr>
+    <%end%>
     <%end%> 
-    </div>
-  
+  </table>
+</div>
 </div>
 
 <table id="grid">
