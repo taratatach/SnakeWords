@@ -1,3 +1,6 @@
+#
+# Author : Erwan Guyader
+#
 class Game < ActiveRecord::Base
   validates :size, :presence => true, :numericality => true
   validates :players, :presence => true

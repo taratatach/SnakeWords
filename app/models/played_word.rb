@@ -1,3 +1,6 @@
+#
+# Author : Erwan Guyader
+#
 class PlayedWord < ActiveRecord::Base
   attr_accessible :letter, :game, :player, :word, :x, :y
 

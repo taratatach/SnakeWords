@@ -1,3 +1,6 @@
+#
+# Author : Erwan Guyader
+#
 class Player < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
 

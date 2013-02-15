@@ -1,3 +1,6 @@
+#
+# Author : Erwan Guyader
+#
 class CreateGamesPlayers < ActiveRecord::Migration
   def up
     create_table :games_players do |t|

@@ -1,3 +1,6 @@
+#
+# Author : Erwan Guyader
+#
 require 'test_helper'
 
 class GameTest < ActiveSupport::TestCase

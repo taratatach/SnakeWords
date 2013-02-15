@@ -1,3 +1,6 @@
+#
+# Author : Erwan Guyader
+#
 class CreatePlayedWords < ActiveRecord::Migration
   def change
     create_table :played_words do |t|
