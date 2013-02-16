@@ -11,7 +11,6 @@ SnakeWords::Application.routes.draw do
   match 'menu/menu'=>'menu#menu',:via => :get
   match 'menu/pick_challenger'=>'menu#pick_challenger',:via => :get
   
-  match 'game/show_played_words'=>'game#show_played_words'
   match 'game/new_game/:id'=>'game#new_game'
   match 'game/start'=>'game#start' ,:via =>[:post,:get]
   
@@ -21,7 +20,6 @@ SnakeWords::Application.routes.draw do
   match 'game/submit_word' => 'game#submit_word'
   match 'game/pass' => 'game#pass'
   match 'game/refresh_grid' => 'game#refresh_grid'
-  match 'game/refresh_result'=> 'game#refresh_result'
   
   match 'game/winner'=> 'game#winner'
   
