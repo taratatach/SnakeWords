@@ -1,7 +1,10 @@
+#
+# Author : Erwan Guyader
+#
 class Player < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
 
-  attr_accessible :name
+  attr_accessible :name,:totalScore
 
   has_and_belongs_to_many :games
 

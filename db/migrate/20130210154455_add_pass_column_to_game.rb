@@ -1,3 +1,6 @@
+#
+# Author : Erwan Guyader
+#
 class AddPassColumnToGame < ActiveRecord::Migration
   def up
     add_column :games, :pass, :boolean, :default => false

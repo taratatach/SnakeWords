@@ -1,3 +1,6 @@
+#
+# Author : Erwan Guyader
+#
 class UpdatePlayer < ActiveRecord::Migration
   def up
     add_index :players, :name, :unique => true

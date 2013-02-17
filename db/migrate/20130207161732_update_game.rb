@@ -1,3 +1,6 @@
+#
+# Author : Erwan Guyader
+#
 class UpdateGame < ActiveRecord::Migration
   def up
     add_column :games, :firstWord, :string, { :default => "" }
