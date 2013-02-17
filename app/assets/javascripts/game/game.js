@@ -44,6 +44,7 @@ function end_game() {
 }
 
 function word(i,j){
+    $("#target"+i+"."+j).css('background-color',"gray");
     $("#dialog" ).css('display','block') ;
     $("#submit").attr('onclick',"submit_form("+i+","+j+")");
     

@@ -48,5 +48,9 @@ class MenuController < ApplicationController
       end
 
     end
+    
+    def credits
+      
+    end
   
 end
