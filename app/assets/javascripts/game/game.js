@@ -1,4 +1,6 @@
-
+/*
+# author : Amha Bekele
+*/
 
 function pass() {
     $.ajax(

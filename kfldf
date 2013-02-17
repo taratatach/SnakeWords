@@ -1,0 +1,107 @@
+diff --git a/app/assets/javascripts/game/game.js b/app/assets/javascripts/game/game.js
+index 2a79cfa..de5dfa8 100644
+--- a/app/assets/javascripts/game/game.js
++++ b/app/assets/javascripts/game/game.js
+@@ -1,4 +1,6 @@
+-
++/*
++# author : Amha Bekele
++*/
+ 
+ function pass() {
+     $.ajax(
+diff --git a/app/assets/stylesheets/application.css b/app/assets/stylesheets/application.css
+index 9492f37..60c7149 100644
+--- a/app/assets/stylesheets/application.css
++++ b/app/assets/stylesheets/application.css
+@@ -11,6 +11,11 @@
+  *= require_self
+  *= require_tree .
+  */
++ /*
++ <%
++ author : Amha Bekele
++%>
++ */
+  *{
+      margin:0;
+      padding:0;
+diff --git a/app/assets/stylesheets/menu.css.scss b/app/assets/stylesheets/menu.css.scss
+index 2b9b37d..9e2226e 100644
+--- a/app/assets/stylesheets/menu.css.scss
++++ b/app/assets/stylesheets/menu.css.scss
+@@ -1,7 +1,9 @@
+ // Place all the styles related to the menu controller here.
+ // They will automatically be included in application.css.
+ // You can use Sass (SCSS) here: http://sass-lang.com/
+-
++/*
++ author : Amha Bekele
++*/
+ $blue: #3bbfce;
+ .menu {
+     margin: 5% auto;
+diff --git a/app/assets/stylesheets/players.css.scss b/app/assets/stylesheets/players.css.scss
+index dc91038..bf40a12 100644
+--- a/app/assets/stylesheets/players.css.scss
++++ b/app/assets/stylesheets/players.css.scss
+@@ -2,7 +2,9 @@
+ // They will automatically be included in application.css.
+ // You can use Sass (SCSS) here: http://sass-lang.com/
+ 
+-
++/*
++author : Amha Bekele
++*/
+ $blue: #3bbfce;
+ $margin: 16px;
+ $border: 1px;
+diff --git a/app/views/menu/credits.erb b/app/views/menu/credits.erb
+index e656715..2d6c9d4 100644
+--- a/app/views/menu/credits.erb
++++ b/app/views/menu/credits.erb
+@@ -1,6 +1,6 @@
+ <%#
+-# To change this template, choose Tools | Templates
+-# and open the template in the editor.
++# author : Amha Bekele
+ %>
+ 
+-<%= "credits" %>
++Erwan Guyader
++Amha Bekele
+diff --git a/app/views/menu/index.html.erb b/app/views/menu/index.html.erb
+index bd32089..a1ae9e7 100644
+--- a/app/views/menu/index.html.erb
++++ b/app/views/menu/index.html.erb
+@@ -1,6 +1,5 @@
+ <%#
+-# To change this template, choose Tools | Templates
+-# and open the template in the editor.
++# author : Amha Bekele
+ %>
+ 
+ <h1> Sign in  </h1>
+diff --git a/app/views/players/index.html.erb b/app/views/players/index.html.erb
+index 020197b..1e655e2 100644
+--- a/app/views/players/index.html.erb
++++ b/app/views/players/index.html.erb
+@@ -1,4 +1,6 @@
+-
++<%#
++# author : Amha Bekele
++%>
+ <div class="container">
+ <h1>Listing players</h1>
+ <table>
+diff --git a/app/views/players/new.html.erb b/app/views/players/new.html.erb
+index bccb0b0..31eb2ea 100644
+--- a/app/views/players/new.html.erb
++++ b/app/views/players/new.html.erb
+@@ -1,3 +1,6 @@
++<%#
++# author : Amha Bekele
++%>
+ <div class="container">
+ <h1>Create a new player</h1>
+ 
