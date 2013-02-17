@@ -1,3 +1,5 @@
+#author: Amha Bekele
+#this controller is in charge of action associated with menu and the login 
 class MenuController < ApplicationController
   
   def index    

@@ -1,3 +1,5 @@
+#author :Amha bekele
+#this controller is in charge of every action in relation with a game
 class GameController < ApplicationController
   def new_game 
     @p2=Player.find_by_name(params[:id])
@@ -8,7 +10,7 @@ class GameController < ApplicationController
     end
     
   end
-  
+  #join a started game or a game proposed by an challenger
   def join_game
     @game=Game.find(params[:id])
     @challenger=nil
@@ -23,7 +25,7 @@ class GameController < ApplicationController
       redirect_to :action=>'start'
     end
   end
-  
+  #creates a new game or loads an existing game
   def start
     @p1=session[:player]
     @p2=session[:challenger]
@@ -47,7 +49,7 @@ class GameController < ApplicationController
     end
   end
   
-  #for ajax call from the view when a new word is inserted
+  #response for an ajax call from the view when a new word is inserted
   def submit_word
     @word=params[:word]
     @letter=params[:letter]
@@ -78,7 +80,7 @@ class GameController < ApplicationController
       throw Exception.new "there is a nil parameter"      
     end
   end
-
+#checks if the game is finished when a player click on pass button
   def pass
     @game=Game.find(session[:current_game])
     @game.pass_turn
@@ -94,6 +96,7 @@ class GameController < ApplicationController
     end
   end
 
+  #shows all played words during game
   def show_played_words
     
     @game=Game.find(session[:current_game])
@@ -112,7 +115,7 @@ class GameController < ApplicationController
     end
    
   end
-  
+  #sends the grid values in json format to update the grid in the view
   def refresh_grid
     @game=Game.find(session[:current_game])  
       
@@ -142,6 +145,7 @@ class GameController < ApplicationController
       format.js {   render :json => {"result"=>@game.playedWords.as_json(:only=>:word,:include => { :player => { :only => :name }}),"grid"=>@game.grid}}
     end  
   end
+  #checks which player has the highest score during the game
   def winner
     @game=Game.find(session[:current_game])    
     s1 = 0

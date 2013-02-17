@@ -10,6 +10,7 @@ SnakeWords::Application.routes.draw do
   match 'menu/signout'=>'menu#signout'
   match 'menu/menu'=>'menu#menu',:via => :get
   match 'menu/pick_challenger'=>'menu#pick_challenger',:via => :get
+  match 'menu/credits'=>'menu#credits',:via => :get
   
   match 'game/new_game/:id'=>'game#new_game'
   match 'game/start'=>'game#start' ,:via =>[:post,:get]

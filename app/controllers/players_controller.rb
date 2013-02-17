@@ -1,6 +1,10 @@
+#author: Amha Bekele
+#this controller is in charge of actions concerning players of the game
 class PlayersController < ApplicationController
+  
+  #list of all players expect the current player stored in session
   def  index
-      
+   
     if(!session[:player])
    
       flash[:error]="You're not signed in!"
@@ -15,7 +19,7 @@ class PlayersController < ApplicationController
    end
     end
   end
-  
+  #creates a new player profile
   def create
     @player=Player.create(:name=>params[:name])
     
