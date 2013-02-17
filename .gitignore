@@ -23,7 +23,6 @@
 /**/*~
 
 # Ignore Gemlock file
-Gemfile.lock
-Gemfile
+
 # Ignore db file
 db/schema.rb
